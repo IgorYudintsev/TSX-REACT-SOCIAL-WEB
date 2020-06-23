@@ -2,12 +2,20 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 
+type generalType={
+    profilePosts:Array<posts>
+}
+type posts = {
+    id:number,
+    message: string,
+    likesCount: number
+}
 
-const MyPosts = () => {
-    let posts = [
-        {id: 1, message: 'Hi', likesCount: 10},
-        {id: 2, message: 'How are you?', likesCount: 100},
-    ]
+const MyPosts = (props:generalType) => {
+    // let posts = [
+    //     {id: 1, message: 'Hi', likesCount: 10},
+    //     {id: 2, message: 'How are you?', likesCount: 100},
+    // ]
 
     return (
         <div className={s.postsBlock}>
@@ -20,7 +28,7 @@ const MyPosts = () => {
             </div>
 
             <div className={s.posts}>
-                {posts.map(m => <Post message={m.message} likesCount={m.likesCount}/>)}
+                {props.profilePosts.map(m => <Post message={m.message} likesCount={m.likesCount}/>)}
               </div>
         </div>
     )
