@@ -10,13 +10,7 @@ type posts = {
     message: string,
     likesCount: number
 }
-
 const MyPosts = (props:generalType) => {
-    // let posts = [
-    //     {id: 1, message: 'Hi', likesCount: 10},
-    //     {id: 2, message: 'How are you?', likesCount: 100},
-    // ]
-
     return (
         <div className={s.postsBlock}>
             <h2>My posts</h2>
@@ -26,7 +20,6 @@ const MyPosts = (props:generalType) => {
                     <button>Add post</button>
                 </div>
             </div>
-
             <div className={s.posts}>
                 {props.profilePosts.map(m => <Post message={m.message} likesCount={m.likesCount}/>)}
               </div>
