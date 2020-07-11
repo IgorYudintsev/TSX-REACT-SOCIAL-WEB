@@ -4,6 +4,7 @@ import Post from "./Post/Post";
 
 type generalType={
     profilePosts:Array<posts>
+    addPosts:(post:string)=>void;
 }
 type posts = {
     id:number,
@@ -11,10 +12,10 @@ type posts = {
     likesCount: number
 }
 const MyPosts = (props:generalType) => {
-let newPostElement=React.createRef<HTMLTextAreaElement>();
 
+let newPostElement=React.createRef<HTMLTextAreaElement>();
 let addPost=()=>{
-     alert(newPostElement.current?.value)
+     props.addPosts(newPostElement.current?newPostElement.current.value : 'xxx')
 }
     return (
         <div className={s.postsBlock}>

@@ -33,17 +33,22 @@ export type Apstate={
     sidebar:isidebar
 }
 type generalState={
-    state:Apstate
+    state:Apstate,
+    addPosts:(post:string)=>void;
 }
 
-const App = (props:generalState) => {
+
+const App = (props:generalState  ) => {
     return (
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs' render={() => <Dialogs AppGeneralStateForDialogs={props.state.dialogsPage}/>}/>
-                    <Route path='/profile' render={() => <Profile AppGeneralState={props.state.profilePage}/>}/>
+                    <Route path='/profile' render={() => <Profile
+                        AppGeneralState={props.state.profilePage}
+                        addPosts={props.addPosts}
+                    />}/>
                 </div>
             </div>
       );
