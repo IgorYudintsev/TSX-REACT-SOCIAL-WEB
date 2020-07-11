@@ -11,13 +11,18 @@ type posts = {
     likesCount: number
 }
 const MyPosts = (props:generalType) => {
+let newPostElement=React.createRef<HTMLTextAreaElement>();
+
+let addPost=()=>{
+     alert(newPostElement.current?.value)
+}
     return (
         <div className={s.postsBlock}>
             <h2>My posts</h2>
             <div>
-                <textarea></textarea>
+                <textarea ref={newPostElement}></textarea>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
