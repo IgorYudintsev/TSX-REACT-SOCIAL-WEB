@@ -9,17 +9,23 @@ export type iposts={
 }
 export type iprofilePage={
     posts:Array<iposts>
+    newPostText:string
 }
 type profileState={
-    AppGeneralState:iprofilePage,
-    addPosts:(post:string)=>void;
+    profilePage:iprofilePage,
+    addPosts:()=>void;
+    updateNewPostText:(newText:string)=>void;
 }
 
 const Profile = (props:profileState) => {
     return (
         <div>
             <ProfileInfo />
-            <MyPosts profilePosts={props.AppGeneralState.posts}  addPosts={props.addPosts} />
+            <MyPosts profilePosts={props.profilePage.posts}
+                     newPostText={props.profilePage.newPostText}
+                     addPosts={props.addPosts}
+                     updateNewPostText={props.updateNewPostText}
+            />
             </div>
     )
 }

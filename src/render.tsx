@@ -3,15 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import state, {istate} from "./redux/state";
-import {addPosts} from "./redux/state";
+import {istate} from "./redux/state";
+import {addPosts,updateNewPostText} from "./redux/state";
 import {BrowserRouter} from "react-router-dom";
 
 export let rerenderEntireTree=(state:istate)=>{
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={state} addPosts={addPosts}/>
+                <App state={state}
+                     addPosts={addPosts}
+                     updateNewPostText={updateNewPostText}
+                />
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')

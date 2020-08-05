@@ -21,6 +21,7 @@ export type iposts={
 }
 export type iprofilePage={
     posts:Array<iposts>
+    newPostText:string
 }
 
 export type isidebar={}
@@ -37,6 +38,7 @@ export type istate={
             {id: 1, message: 'Hi', likesCount: 10},
             {id: 2, message: 'How are you?', likesCount: 100},
         ],
+        newPostText:'it-kamasutra.com'
     },
     dialogsPage: {
         messages: [
@@ -57,14 +59,20 @@ export type istate={
     sidebar: {}
 }
 
-export let addPosts=(postMessage:string)=>{
+export let addPosts=()=>{
     let newPost={
         id:5,
-        message:postMessage,
+        message:state.profilePage.newPostText,
         likesCount:0
     };
     state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText='';
     rerenderEntireTree(state)
+}
+
+export let updateNewPostText=(newText:string)=>{
+    state.profilePage.newPostText=newText;
+    rerenderEntireTree(state);
 }
 
 export default state;

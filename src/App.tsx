@@ -18,40 +18,44 @@ export type idialogsPage = {
     messages: Array<imessages>
     dialogs: Array<idialogs>,
 }
-export type iposts={
-    id:number,
-    message:string,
-    likesCount:number
+export type iposts = {
+    id: number,
+    message: string,
+    likesCount: number
 }
-export type iprofilePage={
-    posts:Array<iposts>
+export type iprofilePage = {
+    posts: Array<iposts>
+    newPostText: string
 }
-export type isidebar={}
-export type Apstate={
-    profilePage:iprofilePage,
-    dialogsPage:idialogsPage,
-    sidebar:isidebar
+export type isidebar = {}
+export type Apstate = {
+    profilePage: iprofilePage,
+    dialogsPage: idialogsPage,
+    sidebar: isidebar
 }
-type generalState={
-    state:Apstate,
-    addPosts:(post:string)=>void;
+
+type generalState = {
+    state: Apstate,
+    addPosts: () => void;
+    updateNewPostText:(newText:string)=>void;
 }
 
 
-const App = (props:generalState  ) => {
+const App = (props: generalState) => {
     return (
-            <div className='app-wrapper'>
-                <Header/>
-                <Navbar/>
-                <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={() => <Dialogs AppGeneralStateForDialogs={props.state.dialogsPage}/>}/>
-                    <Route path='/profile' render={() => <Profile
-                        AppGeneralState={props.state.profilePage}
-                        addPosts={props.addPosts}
-                    />}/>
-                </div>
+        <div className='app-wrapper'>
+            <Header/>
+            <Navbar/>
+            <div className='app-wrapper-content'>
+                <Route path='/dialogs' render={() => <Dialogs AppGeneralStateForDialogs={props.state.dialogsPage}/>}/>
+                <Route path='/profile' render={() => <Profile
+                    profilePage={props.state.profilePage}
+                    addPosts={props.addPosts}
+                    updateNewPostText={props.updateNewPostText}
+                />}/>
             </div>
-      );
+        </div>
+    );
 }
 
 export default App;

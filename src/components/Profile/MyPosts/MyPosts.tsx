@@ -4,7 +4,9 @@ import Post from "./Post/Post";
 
 type generalType = {
     profilePosts: Array<posts>
-    addPosts: (post: string) => void;
+    addPosts: () => void;
+    updateNewPostText:(newText:string)=>void;
+    newPostText: string
 }
 type posts = {
     id: number,
@@ -15,16 +17,27 @@ const MyPosts = (props: generalType) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
     let addPost = () => {
-        props.addPosts(newPostElement.current ? newPostElement.current.value : 'xxx');
-        if (newPostElement.current) {
-            newPostElement.current.value = ''
+        // props.addPosts(newPostElement.current ? newPostElement.current.value : 'xxx');
+        props.addPosts();
+        // if (newPostElement.current) {
+        //    props.updateNewPostText('')
+        // }
+    }
+    let onPostChange = () => {
+        if(newPostElement.current){
+            let text = newPostElement.current.value;
+            props.updateNewPostText(text)
         }
+
     }
     return (
         <div className={s.postsBlock}>
             <h2>My posts</h2>
             <div>
-                <textarea ref={newPostElement}></textarea>
+                <textarea
+                    onChange={onPostChange}
+                    ref={newPostElement}
+                    value={props.newPostText}/>
                 <div>
                     <button onClick={addPost}>Add post</button>
                 </div>
