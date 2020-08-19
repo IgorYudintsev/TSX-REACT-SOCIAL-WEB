@@ -8,13 +8,12 @@ import {BrowserRouter} from "react-router-dom";
 import {istate} from "./redux/state";
 
 
-export let rerenderEntireTree=(state:istate)=>{
+export let rerenderEntireTree = (state: istate) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
                 <App state={state}
-                     addPosts={store.addPosts.bind(store)}
-                     updateNewPostText={store.updateNewPostText.bind(store)}
+                     dispatch={store.dispatch.bind(store)}
                 />
             </BrowserRouter>
         </React.StrictMode>,

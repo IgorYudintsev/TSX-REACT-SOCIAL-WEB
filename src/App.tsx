@@ -5,6 +5,7 @@ import Profile from './components/Profile/Profile';
 import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import Header from "./components/Header/Header";
+import {ActionsTypes} from "./redux/state";
 
 export type idialogs = {
     id: number,
@@ -36,8 +37,7 @@ export type Apstate = {
 
 type generalState = {
     state: Apstate,
-    addPosts: () => void;
-    updateNewPostText:(newText:string)=>void;
+    dispatch:(action:ActionsTypes)=>void
 }
 
 
@@ -50,8 +50,7 @@ const App = (props: generalState) => {
                 <Route path='/dialogs' render={() => <Dialogs AppGeneralStateForDialogs={props.state.dialogsPage}/>}/>
                 <Route path='/profile' render={() => <Profile
                     profilePage={props.state.profilePage}
-                    addPosts={props.addPosts}
-                    updateNewPostText={props.updateNewPostText}
+                     dispatch={props.dispatch}
                 />}/>
             </div>
         </div>
