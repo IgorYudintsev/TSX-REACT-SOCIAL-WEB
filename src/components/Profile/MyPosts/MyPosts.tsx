@@ -1,13 +1,11 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {ActionsTypes} from "../../../redux/state";
+import {ActionsTypes, addPostActionCreator, newPostElementCreator} from "../../../redux/state";
 
 type generalType = {
     profilePosts: Array<posts>
-    // addPosts: () => void;
-    // updateNewPostText: (newText: string) => void;
-    dispatch: (action: ActionsTypes) => void
+    dispatch: (action: any) => void
     newPostText: string
 }
 type posts = {
@@ -18,14 +16,16 @@ type posts = {
 const MyPosts = (props: generalType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
     let addPost = () => {
-        props.dispatch({type: 'ADD-POST'})
+           props.dispatch(addPostActionCreator())
     }
     let onPostChange = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value;
-            props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text})
+            props.dispatch(newPostElementCreator(text))
         }
     }
+
+
 
     return (
         <div className={s.postsBlock}>

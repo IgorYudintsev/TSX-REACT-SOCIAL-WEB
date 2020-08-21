@@ -27,7 +27,6 @@ export type istate = {
     dialogsPage: idialogsPage,
     sidebar: isidebar
 }
-
 export type StoreType = {
     _state: istate
     _callSubscriber: (state: istate) => void
@@ -35,7 +34,6 @@ export type StoreType = {
     getState: () => istate
     dispatch: (action: ActionsTypes) => void
 }
-
 type AddPostActionType = {
     type: 'ADD-POST',
 }
@@ -45,6 +43,8 @@ type updateNewPostTextActionType = {
 }
 export type ActionsTypes=AddPostActionType|updateNewPostTextActionType
 
+const addPost = 'ADD-POST';
+const updateNewPostText = 'UPDATE-NEW-POST-TEXT';
 let store: StoreType = {
     _state: {
         profilePage: {
@@ -83,7 +83,7 @@ let store: StoreType = {
     },
 
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === addPost) {
             let newPost = {
                 id: 5,
                 message: this._state.profilePage.newPostText,
@@ -93,12 +93,25 @@ let store: StoreType = {
             this._state.profilePage.newPostText = '';
             this._callSubscriber(this._state)
         }
-        else if(action.type==='UPDATE-NEW-POST-TEXT'){
+        else if(action.type===updateNewPostText){
             this._state.profilePage.newPostText = action.newText
             this._callSubscriber(this._state);
         }
     }
 }
 
+export let addPostActionCreator=()=>{
+       return{
+        type: addPost
+    }
+}
+export let newPostElementCreator = (text:string) => {
+
+    return {
+        type: updateNewPostText,
+        newText: text
+
+    }
+}
 
 export default store;
