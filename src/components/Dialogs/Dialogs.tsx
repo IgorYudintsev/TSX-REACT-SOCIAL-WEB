@@ -2,7 +2,8 @@ import React, {ChangeEvent} from 'react';
 import s from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {sendMessageCreator, StoreType, updateNewMessageBodyCreator} from './../../redux/state'
+import {sendMessageCreator, updateNewMessageBodyCreator} from './../../redux/dialogs-reducer'
+import {StoreType} from './../../redux/state'
 
 type dialogs = {
     id: number,
@@ -12,11 +13,6 @@ type messages = {
     id: number,
     message: string
 }
-// type generalType = {
-//     dialogs: Array<dialogs>,
-//     messages: Array<messages>
-//     newMessageBody: string
-// }
 
 type DialogGeneralState = {
     store: StoreType
