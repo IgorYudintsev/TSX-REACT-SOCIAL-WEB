@@ -3,7 +3,8 @@ import s from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {sendMessageCreator, updateNewMessageBodyCreator} from './../../redux/dialogs-reducer'
-import {StoreType} from './../../redux/state'
+import {StoreType} from '../../redux/store'
+import { createStoreType} from "../../redux/redux-store";
 
 type dialogs = {
     id: number,
@@ -15,8 +16,7 @@ type messages = {
 }
 
 type DialogGeneralState = {
-    store: StoreType
-
+    store:createStoreType
 }
 
 let Dialogs = (props: DialogGeneralState) => {
