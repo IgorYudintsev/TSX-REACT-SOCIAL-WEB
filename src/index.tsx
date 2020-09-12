@@ -23,6 +23,7 @@ export let rerenderEntireTree = (state: istate) => {
 }
 
 rerenderEntireTree(store.getState());
+// store.subscribe(rerenderEntireTree);-ранее было так
 store.subscribe(()=>{
     let state=store.getState();
     rerenderEntireTree(state)

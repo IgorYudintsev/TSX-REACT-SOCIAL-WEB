@@ -3,34 +3,37 @@ import s from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {sendMessageCreator, updateNewMessageBodyCreator} from './../../redux/dialogs-reducer'
-import {StoreType} from '../../redux/store'
+import {idialogsPage, StoreType} from '../../redux/store'
 import { createStoreType} from "../../redux/redux-store";
-
-type dialogs = {
-    id: number,
-    name: string
-}
-type messages = {
-    id: number,
-    message: string
-}
+//
+// type dialogs = {
+//     id: number,
+//     name: string
+// }
+// type messages = {
+//     id: number,
+//     message: string
+// }
 
 type DialogGeneralState = {
+    dialogsPage:idialogsPage
+    sendMessage:()=>void
+    updateNewMessageBody:(body:string)=>void
     store:createStoreType
 }
 
 let Dialogs = (props: DialogGeneralState) => {
 
+    let state = props.dialogsPage
+    let newMessageBody = state.newMessageBody;
 
-    let state = props.store.getState().dialogsPage
-
-    let newMessageBody = state.newMessageBody
     let onSendMessageClick = () => {
-        props.store.dispatch(sendMessageCreator())
+        props.sendMessage();
     }
+
     let onNewMessageChange = (event:ChangeEvent<HTMLTextAreaElement>) => {
         let body = event.currentTarget.value;
-        props.store.dispatch(updateNewMessageBodyCreator(body))
+        props.updateNewMessageBody(body)
     }
     return (
         <div className={s.dialogs}>
