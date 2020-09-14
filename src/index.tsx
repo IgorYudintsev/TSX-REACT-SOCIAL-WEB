@@ -6,16 +6,17 @@ import * as serviceWorker from './serviceWorker';
 import store from "./redux/redux-store";
 import {BrowserRouter} from "react-router-dom";
 import {istate} from "./redux/store";
+import {Provider} from "./StoreContext";
 
 
 export let rerenderEntireTree = (state: istate) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={state}
-                     dispatch={store.dispatch.bind(store)}
-                     store={store}
-                />
+                {/*Вынесенная компонента из StoreContext*/}
+                <Provider store={store}>
+                    <App/>
+                </Provider>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
@@ -23,9 +24,8 @@ export let rerenderEntireTree = (state: istate) => {
 }
 
 rerenderEntireTree(store.getState());
-// store.subscribe(rerenderEntireTree);-ранее было так
-store.subscribe(()=>{
-    let state=store.getState();
+store.subscribe(() => {
+    let state = store.getState();
     rerenderEntireTree(state)
 });
 

@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from 'redux'
+import {combineReducers, createStore,Store} from 'redux'
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import sideBarReducer from "./sideBar-reducer";
@@ -8,9 +8,7 @@ let reducers = combineReducers({
     dialogsPage: dialogsReducer,
     sidebar: sideBarReducer
 });
-let store = createStore(reducers);
-
-export type createStoreType=typeof store
+let store: Store = createStore(reducers);//типизация из redux для Store
+export type AppStateType = ReturnType<typeof reducers>//это типизация state всего приложения
 
 export default store;
-

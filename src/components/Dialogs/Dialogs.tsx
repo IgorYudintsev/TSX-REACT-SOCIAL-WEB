@@ -2,35 +2,22 @@ import React, {ChangeEvent} from 'react';
 import s from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {sendMessageCreator, updateNewMessageBodyCreator} from './../../redux/dialogs-reducer'
 import {idialogsPage, StoreType} from '../../redux/store'
-import { createStoreType} from "../../redux/redux-store";
-//
-// type dialogs = {
-//     id: number,
-//     name: string
-// }
-// type messages = {
-//     id: number,
-//     message: string
-// }
+import {Store} from 'redux'
 
 type DialogGeneralState = {
     dialogsPage:idialogsPage
     sendMessage:()=>void
     updateNewMessageBody:(body:string)=>void
-    store:createStoreType
+    store:Store
 }
 
 let Dialogs = (props: DialogGeneralState) => {
-
     let state = props.dialogsPage
     let newMessageBody = state.newMessageBody;
-
     let onSendMessageClick = () => {
         props.sendMessage();
     }
-
     let onNewMessageChange = (event:ChangeEvent<HTMLTextAreaElement>) => {
         let body = event.currentTarget.value;
         props.updateNewMessageBody(body)
