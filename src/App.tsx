@@ -6,7 +6,7 @@ import {Route} from "react-router-dom";
 import Header from "./components/Header/Header";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
-const App = () => {//мы убрали props так как больше нечего не передоём
+const App = () => {
     return (
         <div className='app-wrapper'>
             <Header/>

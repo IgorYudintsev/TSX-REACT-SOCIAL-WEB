@@ -50,21 +50,3 @@ export let updateNewMessageBodyCreator = (body: string): updateNewMessageBodyTyp
 }
 
 export default dialogsReducer;
- //======================
-// import {ActionsTypes, istate} from "./state";
-//
-// const updateNewMessageBody = 'update-New-Message-Body';
-// const SendMessage = 'Send-Message';
-//
-// const dialogsReducer = (state: istate, action: ActionsTypes) => {
-//     if (action.type == updateNewMessageBody) {
-//         state.dialogsPage.newMessageBody = action.body
-//     } else if (action.type = SendMessage) {
-//         let body = state.dialogsPage.newMessageBody;
-//         state.dialogsPage.newMessageBody = '';
-//         state.dialogsPage.messages.push({id: 6, message: body});
-//     }
-//     return state
-// }
-//
-// export default dialogsReducer;

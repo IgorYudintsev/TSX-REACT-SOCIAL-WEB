@@ -58,6 +58,9 @@ export type SendMessageType = {
 
 export type ActionsTypes = AddPostActionType | updateNewPostTextActionType | updateNewMessageBodyType | SendMessageType
 
+
+export type DialogsContainerType= SendMessageType|updateNewMessageBodyType
+
 let store: StoreType = {
     _state: {
         profilePage: {
