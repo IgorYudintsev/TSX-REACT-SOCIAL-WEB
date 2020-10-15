@@ -13,16 +13,19 @@ export type initialStateType = {
 
 
 export const Users = (props: initialStateType) => {
+ const getUsers=()=>{
+     if (props.users.length === 0) {
+         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+             props.setUser(response.data.items)
+             console.log(response)
+         })
+     }
+ }
 
-    if (props.users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            props.setUser(response.data.items)
-            console.log(response)
-        })
-    }
 
     return (
         <div>
+            <button onClick={getUsers}>GET USERS</button>
             {props.users.map(m => <div key={m.id}>
             <span>
                 <div>
