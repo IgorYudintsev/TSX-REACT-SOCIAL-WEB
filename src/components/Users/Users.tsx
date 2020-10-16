@@ -3,30 +3,27 @@ import styles from './Users.module.css'
 import {FollowActionType, UnFollowActionType, usersType} from "../../redux/users-reducer";
 import axios from 'axios'
 
-
 export type initialStateType = {
     users: Array<usersType>
     follow: (id: number) => void
     unfollow: (id: number) => void
     setUser: (users: Array<usersType>) => void
 }
+//теперь грузим гет запрос без кнопки
+class User extends React.Component<initialStateType> {
+    constructor(props:initialStateType) {
+        super(props);
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            this.props.setUser(response.data.items)
+            console.log(response)
+        })
+    }
 
+    render() {
+        return (
+            <div>
 
-export const Users = (props: initialStateType) => {
- const getUsers=()=>{
-     if (props.users.length === 0) {
-         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-             props.setUser(response.data.items)
-             console.log(response)
-         })
-     }
- }
-
-
-    return (
-        <div>
-            <button onClick={getUsers}>GET USERS</button>
-            {props.users.map(m => <div key={m.id}>
+                {this.props.users.map(m => <div key={m.id}>
             <span>
                 <div>
                    <img
@@ -35,22 +32,23 @@ export const Users = (props: initialStateType) => {
                 </div>
                 <div>
                    {m.followed
-                       ? <button onClick={() => props.unfollow(m.id)} className={styles.margForBtn}>UNFollow</button>
-                       : <button onClick={() => props.follow(m.id)} className={styles.margForBtn}>Follow</button>
+                       ? <button onClick={() => this.props.unfollow(m.id)} className={styles.margForBtn}>UNFollow</button>
+                       : <button onClick={() => this.props.follow(m.id)} className={styles.margForBtn}>Follow</button>
                    }
                 </div>
             </span>
-                <span>
+                    <span>
                     <div className={styles.marg}>{m.name}</div>
                     <div className={styles.marg}>{m.status}</div>
                 </span>
-                <span>
+                    <span>
                     <div className={styles.marg}>{"m.location.country"}</div>
                     <div className={styles.marg}>{"m.location.city"}</div>
                 </span>
-            </div>)}
-        </div>
-    )
+                </div>)}
+            </div>
+        )
+    }
 }
 
-export default Users;
+export default User;
