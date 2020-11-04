@@ -5,23 +5,49 @@ import axios from 'axios'
 
 export type initialStateType = {
     users: Array<usersType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
     follow: (id: number) => void
     unfollow: (id: number) => void
     setUser: (users: Array<usersType>) => void
+    setCurrentPage: (pageNumber: number) => void
+    setTotalUsersCount: (totalCount: number) => void
 }
-//теперь грузим гет запрос без кнопки
+
 class User extends React.Component<initialStateType> {
-       componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            this.props.setUser(response.data.items)
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUser(response.data.items);
+            this.props.setTotalUsersCount(response.data.totalCount);
+            console.log(response)
+        })
+    }
+
+    onPageChange = (pageNUmber: number) => {
+        this.props.setCurrentPage(pageNUmber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNUmber}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUser(response.data.items);
             console.log(response)
         })
     }
 
     render() {
+        let pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+        let pages = [];
+        for (let i = 1; i <= pageCount; i++) {
+            pages.push(i);
+        }
         return (
             <div>
-
+                <div className={styles.pagesBlock}>
+                    {pages.map(p =>
+                        <span className={this.props.currentPage === p ? styles.selectedPage : styles.pages}
+                              onClick={(event) => {
+                                  this.onPageChange(p)
+                              }}>{p}</span>
+                    )}
+                </div>
                 {this.props.users.map(m => <div key={m.id}>
             <span>
                 <div>
@@ -31,7 +57,8 @@ class User extends React.Component<initialStateType> {
                 </div>
                 <div>
                    {m.followed
-                       ? <button onClick={() => this.props.unfollow(m.id)} className={styles.margForBtn}>UNFollow</button>
+                       ?
+                       <button onClick={() => this.props.unfollow(m.id)} className={styles.margForBtn}>UNFollow</button>
                        : <button onClick={() => this.props.follow(m.id)} className={styles.margForBtn}>Follow</button>
                    }
                 </div>
