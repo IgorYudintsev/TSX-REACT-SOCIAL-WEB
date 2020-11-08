@@ -10,7 +10,8 @@ let reducers = combineReducers({
     sidebar: sideBarReducer,
     usersPage:usersReducer
 });
-let store: Store = createStore(reducers);//типизация из redux для Store
 export type AppStateType = ReturnType<typeof reducers>//это типизация state всего приложения
-
+let store: Store = createStore(reducers);//типизация из redux для Store
+//@ts-ignore
+window.store=store;
 export default store;

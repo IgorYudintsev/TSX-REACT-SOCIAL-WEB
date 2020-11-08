@@ -1,24 +1,25 @@
 import React from 'react';
 import styles from "./Users.module.css";
 import {usersType} from "../../redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
-type propsType={
-    pageSize:number
-    totalUserscount:number
-    onPageChange:(pageNumber:number)=>void
-    currentPage:number
+type propsType = {
+    pageSize: number
+    totalUserscount: number
+    onPageChange: (pageNumber: number) => void
+    currentPage: number
     follow: (id: number) => void,
     unfollow: (id: number) => void,
     users: Array<usersType>
 }
 
-export const Users=(props:propsType)=>{
+export const Users = (props: propsType) => {
     let pageCount = Math.ceil(props.totalUserscount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i);
     }
-    return(
+    return (
         <div>
             <div className={styles.pagesBlock}>
                 {pages.map(p =>
@@ -31,14 +32,17 @@ export const Users=(props:propsType)=>{
             {props.users.map(m => <div key={m.id}>
             <span>
                 <div>
-                   <img
-                       src={m.photos.small != null ? m.photos.small : 'https://e7.pngegg.com/pngimages/613/636/png-clipart-computer-icons-user-profile-male-avatar-avatar-heroes-logo.png'}
-                       className={styles.picture}/>
+                    <NavLink to={'/profile/'+m.id}>
+                        <img src={m.photos.small != null
+                            ? m.photos.small
+                            : 'https://e7.pngegg.com/pngimages/613/636/png-clipart-computer-icons-user-profile-male-avatar-avatar-heroes-logo.png'}
+                             className={styles.picture}/>
+                    </NavLink>
+
                 </div>
                 <div>
                    {m.followed
-                       ?
-                       <button onClick={() => props.unfollow(m.id)} className={styles.margForBtn}>UNFollow</button>
+                       ? <button onClick={() => props.unfollow(m.id)} className={styles.margForBtn}>UNFollow</button>
                        : <button onClick={() => props.follow(m.id)} className={styles.margForBtn}>Follow</button>
                    }
                 </div>
