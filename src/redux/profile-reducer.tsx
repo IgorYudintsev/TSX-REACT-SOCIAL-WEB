@@ -5,6 +5,7 @@ import {
     setUserProfileActionType,
     updateNewPostTextActionType
 } from "./store";
+import {usersAPI} from "../api/api";
 
 
 type contactsType={
@@ -87,6 +88,12 @@ export let setUserProfile = (profile:profileType):setUserProfileActionType => {
         type: SET_USER_PROFILE,
         profile
     }
+}
+
+export const getUserProfile = (userId:any) => (dispatch:any) => {
+    usersAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfile(response.data));
+    });
 }
 
 export let newPostElementCreator = (text: string): updateNewPostTextActionType => {

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import s from './ProfileInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
@@ -5,7 +6,7 @@ import styles from "./ProfileInfo.module.css";
 import {propsProfileType} from "../../../redux/profile-reducer";
 
 const ProfileInfo = (props:propsProfileType) => {
-    if(!props.profile){
+      if(!props.profile){
         return <Preloader/>
     }
     return (
@@ -21,6 +22,7 @@ const ProfileInfo = (props:propsProfileType) => {
                 />
                 ava+description
             </div>
+
         </div>
     )
 }

@@ -40,7 +40,6 @@ let initialState: initialStateType = {
 }
 
 
-
 const usersReducer = (state: initialStateType = initialState, action: FollowActionType |
     UnFollowActionType | SetUsersActionType | setCurrentPageAC | setTotalUsersCountAC |
     toggleIsFetchingACType | toggleFollowingProgressACType): initialStateType => {
@@ -120,7 +119,15 @@ export type toggleFollowingProgressACType = {
     isFetching: boolean
     userID: number
 }
-type actionTypes=toggleIsFetchingACType|FollowActionType|UnFollowActionType|SetUsersActionType|SetUsersActionType|setCurrentPageAC|setTotalUsersCountAC|toggleFollowingProgressACType
+type actionTypes =
+    toggleIsFetchingACType
+    | FollowActionType
+    | UnFollowActionType
+    | SetUsersActionType
+    | SetUsersActionType
+    | setCurrentPageAC
+    | setTotalUsersCountAC
+    | toggleFollowingProgressACType
 
 export let followSuccess = (userID: number): FollowActionType => ({type: FOLLOW, userID})
 export let unfollowSuccess = (userID: number): UnFollowActionType => {
@@ -129,18 +136,27 @@ export let unfollowSuccess = (userID: number): UnFollowActionType => {
         userID
     }
 }
-export let setUsers = (users: Array<usersType>):SetUsersActionType => ({type: SET_USERS, users})
-export let setCurrentPage = (currentPage: number):setCurrentPageAC => ({type: SET_CURRENT_PAGE, currentPage: currentPage})
-export let setTotalUsersCount = (totalUsersCount: number):setTotalUsersCountAC => ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount})
-export let toggleIsFetching = (isFetching: boolean):toggleIsFetchingACType => ({type: TOGGLE_IS_FETCHING, isFetching: isFetching})
-export let toggleFollowingProgress = (isFetching: boolean, userID: number):toggleFollowingProgressACType => ({
+export let setUsers = (users: Array<usersType>): SetUsersActionType => ({type: SET_USERS, users})
+export let setCurrentPage = (currentPage: number): setCurrentPageAC => ({
+    type: SET_CURRENT_PAGE,
+    currentPage: currentPage
+})
+export let setTotalUsersCount = (totalUsersCount: number): setTotalUsersCountAC => ({
+    type: SET_TOTAL_USERS_COUNT,
+    count: totalUsersCount
+})
+export let toggleIsFetching = (isFetching: boolean): toggleIsFetchingACType => ({
+    type: TOGGLE_IS_FETCHING,
+    isFetching: isFetching
+})
+export let toggleFollowingProgress = (isFetching: boolean, userID: number): toggleFollowingProgressACType => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
     isFetching: isFetching,
     userID: userID
 })
 export const getUsers = (currentPage: number, pageSize: number) => {
     return (
-        (dispatch: Dispatch<actionTypes>,getState:()=>AppStateType) => {
+        (dispatch: Dispatch<actionTypes>, getState: () => AppStateType) => {
             getState()
             dispatch(toggleIsFetching(true));
             usersAPI.getUsers(currentPage, pageSize).then(data => {
@@ -152,8 +168,7 @@ export const getUsers = (currentPage: number, pageSize: number) => {
     )
 }
 export const follow = (userId: number) => {
-    return (dispatch: Dispatch<actionTypes>,getState:()=>AppStateType) => {
-        //Dispatch<типы экшенов>,getState:()=>автоматически создается в redux-store
+    return (dispatch: Dispatch<actionTypes>, getState: () => AppStateType) => {
         dispatch(toggleFollowingProgress(false, userId));
         usersAPI.follow(userId)
             .then(response => {
@@ -165,7 +180,7 @@ export const follow = (userId: number) => {
     }
 }
 export const unfollow = (userId: number) => {
-    return (dispatch: Dispatch<actionTypes>,getState:()=>AppStateType) => {
+    return (dispatch: Dispatch<actionTypes>, getState: () => AppStateType) => {
         dispatch(toggleFollowingProgress(true, userId));
         usersAPI.unfollow(userId)
             .then(response => {
