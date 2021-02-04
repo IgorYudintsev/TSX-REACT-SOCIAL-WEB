@@ -6,7 +6,7 @@ import {idialogsPage} from '../../redux/store'
 import { Redirect } from 'react-router-dom';
 
 
-type DialogGeneralState = {
+export type DialogGeneralState = {
     dialogsPage:idialogsPage
     sendMessage:()=>void
     updateNewMessageBody:(body:string)=>void

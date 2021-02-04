@@ -1,11 +1,12 @@
 import React from 'react';
 import {Dispatch} from 'redux';
 import {sendMessageCreator, updateNewMessageBodyCreator} from './../../redux/dialogs-reducer'
-import Dialogs from "./Dialogs";
+import Dialogs, {DialogGeneralState} from "./Dialogs";
 import {connect} from "react-redux";
 import { istate} from "../../redux/store";
 import {initialStateType} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
+import {Redirect} from "react-router";
 
 type DialogsContainerType={
     state:istate
@@ -31,9 +32,13 @@ const mapDispatchToProps=(dispatch:Dispatch)=>{
     }
 }
 
-let DialogsContainer = connect(mapStatetoProps,mapDispatchToProps)(Dialogs)
+let AuthRedirectComponent=(props:DialogGeneralState)=>{
+    if (props.isAuth == false) return <Redirect to={'/Login'}/>
+    return <Dialogs {...props}/>
+}
 
 
+let DialogsContainer = connect(mapStatetoProps,mapDispatchToProps)(AuthRedirectComponent)
 export default DialogsContainer;
 
 
