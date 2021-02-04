@@ -31,9 +31,9 @@ const mapDispatchToProps=(dispatch:Dispatch)=>{
     }
 }
 
-
-
 let DialogsContainer = connect(mapStatetoProps,mapDispatchToProps)(Dialogs)
+
+
 export default DialogsContainer;
 
 
