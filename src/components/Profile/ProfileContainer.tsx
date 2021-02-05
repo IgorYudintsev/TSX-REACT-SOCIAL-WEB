@@ -11,10 +11,10 @@ type PathParamsType = {
 }
 export type initialProfileStateType = MapStateToPropsType & MapDispatchPropsType;
 export type RouteComponentPropsType = RouteComponentProps<PathParamsType> & initialProfileStateType
+
 export type MapStateToPropsType = {
     profile: profileType
     isAuth:boolean
-
 }
 export type MapDispatchPropsType = {
     getUserProfile: (userId: any) => void
@@ -29,10 +29,7 @@ class ProfileContainer extends React.Component<RouteComponentPropsType> {
         this.props.getUserProfile(userId);
     }
     render() {
-        // if(this.props.isAuth==true)return <Redirect to={'/Login'}/>
-        // if(this.props.isAuth==false )return <Redirect to={'/Login'}/>
-
-        return (
+             return (
             <div>
                 <Profile {...this.props} profile={this.props.profile}/>
             </div>
@@ -40,16 +37,16 @@ class ProfileContainer extends React.Component<RouteComponentPropsType> {
     }
 }
 
-// let AuthRedirectComponent=(props:RouteComponentPropsType)=>{
-//     if (props.isAuth == false) return <Redirect to={'/Login'}/>
-//     return <ProfileContainer {...props}/>
-// }
 let AuthRedirectComponent=withAuthRedirect(ProfileContainer)
 
-let mapStateToProps = (state: AppStateType) => ({
+let mapStateToProps = (state:AppStateType) => ({
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth
 })
 
 let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
 export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);
+
+
+
+
+

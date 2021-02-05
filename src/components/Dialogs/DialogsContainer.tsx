@@ -18,7 +18,8 @@ type DialogsContainerType={
 const mapStatetoProps=(state:AppStateType)=>{
       return{
         dialogsPage:state.dialogsPage,
-        isAuth: state.auth.isAuth
+          //теперь это не нужно
+        //isAuth: state.auth.isAuth
           }
 }
 
@@ -32,11 +33,7 @@ const mapDispatchToProps=(dispatch:Dispatch)=>{
         }
     }
 }
-//
-// let AuthRedirectComponent=(props:DialogGeneralState)=>{
-//     if (props.isAuth == false) return <Redirect to={'/Login'}/>
-//     return <Dialogs {...props}/>
-// }
+
 let AuthRedirectComponent=withAuthRedirect(Dialogs)
 
 let DialogsContainer = connect(mapStatetoProps,mapDispatchToProps)(AuthRedirectComponent)

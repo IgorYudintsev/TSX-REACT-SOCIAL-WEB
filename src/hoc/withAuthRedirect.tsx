@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {Redirect} from "react-router-dom";
 import {DialogGeneralState} from "../components/Dialogs/Dialogs";
 import {
@@ -6,25 +6,69 @@ import {
     MapStateToPropsType,
     RouteComponentPropsType
 } from "../components/Profile/ProfileContainer";
+import {AppStateType} from "../redux/redux-store";
+import {connect} from "react-redux";
 
-type withAuthRedirectType = DialogGeneralState | RouteComponentPropsType & MapStateToPropsType & MapDispatchPropsType
 
-// type RedirectComponentType={
-//     getUserProfile:(userId: any)=>void
-//     // history:any
-//     isAuth:boolean
-//     // location:any
-//     // match:any
-//     profile:any
-//     // staticContext:any
-// }
+type mapStateToPropsForDirectType={
+    isAuth:boolean
+}
+//                              state:Типизация редюсеров
+let mapStateToPropsForDirect = (state:AppStateType):mapStateToPropsForDirectType => ({
+    isAuth: state.auth.isAuth
+})
 
-export const withAuthRedirect = (Component: any) => {
-    function RedirectComponent(props: any) {
-        if (props.isAuth == false) return <Redirect to={'/Login'}/>
-        return <Component {...props}/>
+export function withAuthRedirect <T>(Component: ComponentType<T>) {
+    function RedirectComponent(props: mapStateToPropsForDirectType) {
+        // деструктуризация достань из пропса остаточные
+        let {isAuth, ...restProps}=props
+            if (isAuth == false) return <Redirect to={'/Login'}/>
+        return <Component {...restProps as T}/>
     }
 
-    return RedirectComponent
+    let ConnectedAuthRedirectComponent=connect(mapStateToPropsForDirect)(RedirectComponent)
+    return ConnectedAuthRedirectComponent
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
