@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect}from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import {DialogGeneralState} from "../components/Dialogs/Dialogs";
 import {
     MapDispatchPropsType,
@@ -7,7 +7,7 @@ import {
     RouteComponentPropsType
 } from "../components/Profile/ProfileContainer";
 
-type withAuthRedirectType=DialogGeneralState|RouteComponentPropsType & MapStateToPropsType & MapDispatchPropsType
+type withAuthRedirectType = DialogGeneralState | RouteComponentPropsType & MapStateToPropsType & MapDispatchPropsType
 
 // type RedirectComponentType={
 //     getUserProfile:(userId: any)=>void
@@ -19,13 +19,12 @@ type withAuthRedirectType=DialogGeneralState|RouteComponentPropsType & MapStateT
 //     // staticContext:any
 // }
 
-export const withAuthRedirect=(Component:any)=>{
-   debugger
-    function RedirectComponent(props:any) {
-       debugger
+export const withAuthRedirect = (Component: any) => {
+    function RedirectComponent(props: any) {
         if (props.isAuth == false) return <Redirect to={'/Login'}/>
         return <Component {...props}/>
-        }
+    }
+
     return RedirectComponent
 
 }
