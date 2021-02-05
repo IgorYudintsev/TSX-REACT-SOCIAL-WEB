@@ -7,6 +7,7 @@ import { istate} from "../../redux/store";
 import {initialStateType} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type DialogsContainerType={
     state:istate
@@ -31,12 +32,12 @@ const mapDispatchToProps=(dispatch:Dispatch)=>{
         }
     }
 }
-
-let AuthRedirectComponent=(props:DialogGeneralState)=>{
-    if (props.isAuth == false) return <Redirect to={'/Login'}/>
-    return <Dialogs {...props}/>
-}
-
+//
+// let AuthRedirectComponent=(props:DialogGeneralState)=>{
+//     if (props.isAuth == false) return <Redirect to={'/Login'}/>
+//     return <Dialogs {...props}/>
+// }
+let AuthRedirectComponent=withAuthRedirect(Dialogs)
 
 let DialogsContainer = connect(mapStatetoProps,mapDispatchToProps)(AuthRedirectComponent)
 export default DialogsContainer;
