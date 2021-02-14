@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 
 type propsType = {
     status: string
+    updateStatus: (status: string) => void
 }
 
 export class ProfileStatus extends React.Component <propsType> {
     state = {
         editMode: false,
+        status: this.props.status
     }
 
-    //Это вроде и объект и вроде как стрелочн.функция...
     activateEditeMode = () => {
-        //setState-асинхрон. функция
         this.setState(
             {
                 editMode: true
@@ -19,9 +19,16 @@ export class ProfileStatus extends React.Component <propsType> {
         )
     }
 
-    deActivateEditeMode=()=>{
+    deActivateEditeMode = () => {
         this.setState({
-                editMode:false
+                editMode: false
+            }
+        )
+        this.props.updateStatus(this.state.status)
+    }
+        onStatusChange=(event:ChangeEvent<HTMLInputElement> )=>{
+        this.setState({
+                status:event.currentTarget.value
             }
         )
     }
@@ -30,8 +37,12 @@ export class ProfileStatus extends React.Component <propsType> {
         return (
             <div>
                 {!this.state.editMode
-                    ? <span onDoubleClick={this.activateEditeMode}>{this.props.status}</span>
-                    : <input onBlur={this.deActivateEditeMode} autoFocus={true} value={this.props.status}/>
+                    ? <span onDoubleClick={this.activateEditeMode}>
+                        {this.props.status || '---'}</span>
+                    : <input
+                        onChange={this.onStatusChange}
+                        onBlur={this.deActivateEditeMode} autoFocus={true}
+                             value={this.state.status}/>
                 }
             </div>
         )
