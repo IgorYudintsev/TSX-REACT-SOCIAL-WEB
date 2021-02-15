@@ -16,7 +16,6 @@ export type idialogsPage = {
     messages: Array<imessages>
     dialogs: Array<idialogs>,
     newMessageBody: string
-
 }
 export type iposts = {
     id: number,
@@ -57,20 +56,15 @@ export type setStatusAC={
     type: 'SET_STATUS',
     status: string
 }
-
 export type updateNewMessageBodyType = {
     type: 'update-New-Message-Body'
     body: string
 }
-
 export type SendMessageType = {
     type: 'Send-Message'
 }
-
 export type ActionsTypes = AddPostActionType | updateNewPostTextActionType | updateNewMessageBodyType
     | SendMessageType |setUserProfileActionType|setStatusAC
-
-
 
 let store: StoreType = {
     _state: {
@@ -111,7 +105,6 @@ let store: StoreType = {
     subscribe(observer: (state: istate) => void) {
         this._callSubscriber = observer
     },
-
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
@@ -120,5 +113,14 @@ let store: StoreType = {
     }
 }
 
-
 export default store;
+
+
+
+
+
+
+
+
+
+

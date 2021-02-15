@@ -8,7 +8,6 @@ import {
 import {profileAPI, usersAPI} from "../api/api";
 import {AppStateType} from "./redux-store";
 import {number} from "prop-types";
-
 type contactsType = {
     facebook: string
     website: string
@@ -39,9 +38,6 @@ export type statusUpdateType = {
     messages: Array<string>,
     data: any
 }
-
-
-
 
 export type propsProfileType =
     {
@@ -143,5 +139,4 @@ export let newPostElementCreator = (text: string): updateNewPostTextActionType =
         newText: text
     }
 }
-
 export default profileReducer;
