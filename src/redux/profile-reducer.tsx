@@ -56,7 +56,7 @@ let initialState = {
         {id: 1, message: 'Hi', likesCount: 10},
         {id: 2, message: 'How are you?', likesCount: 100},
     ],
-    newPostText: 'it-kamasutra.com',
+    // newPostText: 'it-kamasutra.com',
     profile: null,
     status: ''
 }
@@ -66,7 +66,7 @@ const profileReducer = (state: iprofilePage = initialState, action: ActionsTypes
         case addPost: {
             let newPost = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0
             };
             return {
@@ -75,13 +75,13 @@ const profileReducer = (state: iprofilePage = initialState, action: ActionsTypes
                 newPostText: '',
             };
         }
-        case  updateNewPostText: {
-            return {
-                ...state,
-                posts: [...state.posts],
-                newPostText: action.newText
-            };
-        }
+        // case  updateNewPostText: {
+        //     return {
+        //         ...state,
+        //         posts: [...state.posts],
+        //         newPostText: action.newText
+        //     };
+        // }
         case  SET_STATUS: {
                      return {
                 ...state,
@@ -96,9 +96,10 @@ const profileReducer = (state: iprofilePage = initialState, action: ActionsTypes
     }
 }
 
-export let addPostActionCreator = (): AddPostActionType => {
+export let addPostActionCreator = (newPostText:string): AddPostActionType => {
     return {
-        type: addPost
+        type: addPost,
+        newPostText
     }
 }
 export let setUserProfile = (profile: profileType): setUserProfileActionType => {
@@ -133,10 +134,11 @@ export let updateStatus = (status: string) => (dispatch: any) => {
             }
         })
 }
-export let newPostElementCreator = (text: string): updateNewPostTextActionType => {
-    return {
-        type: updateNewPostText,
-        newText: text
-    }
-}
+// export let newPostElementCreator = (text: string): updateNewPostTextActionType => {
+//     return {
+//         type: updateNewPostText,
+//         newText: text
+//     }
+// }
 export default profileReducer;
+

@@ -15,7 +15,7 @@ export type imessages = {
 export type idialogsPage = {
     messages: Array<imessages>
     dialogs: Array<idialogs>,
-    newMessageBody: string
+    // newMessageBody: string
 }
 export type iposts = {
     id: number,
@@ -24,7 +24,7 @@ export type iposts = {
 }
 export type iprofilePage = {
     posts: Array<iposts>
-    newPostText: string
+    // newPostText: string
     profile:any
     status:string
 }
@@ -43,6 +43,7 @@ export type StoreType = {
 }
 export type AddPostActionType = {
     type: 'ADD-POST',
+    newPostText:string
 }
 export type updateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT',
@@ -61,7 +62,8 @@ export type updateNewMessageBodyType = {
     body: string
 }
 export type SendMessageType = {
-    type: 'Send-Message'
+    type: 'Send-Message',
+    newMessageBody:string
 }
 export type ActionsTypes = AddPostActionType | updateNewPostTextActionType | updateNewMessageBodyType
     | SendMessageType |setUserProfileActionType|setStatusAC
@@ -73,7 +75,7 @@ let store: StoreType = {
                 {id: 1, message: 'Hi', likesCount: 10},
                 {id: 2, message: 'How are you?', likesCount: 100},
             ],
-            newPostText: 'it-kamasutra.com',
+            // newPostText: 'it-kamasutra.com',
             profile:null,
             status:''
         },
@@ -92,7 +94,7 @@ let store: StoreType = {
                 {id: 4, name: 'Olga'},
                 {id: 5, name: 'Nadzeika'},
             ],
-            newMessageBody: ''
+            // newMessageBody: ''
         },
         sidebar: {}
     },
