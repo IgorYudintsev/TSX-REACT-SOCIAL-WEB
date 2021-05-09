@@ -5,12 +5,10 @@ import {
     getStatus,
     getUserProfile,
     profileType,
-    propsProfileType,
     updateStatus
 } from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import { RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from "redux";
 type PathParamsType = {
     userId: any
@@ -30,15 +28,18 @@ export type MapDispatchPropsType = {
     updateStatus: (status:string) => void
 }
 
+//проблема: после того как мы вылогинились мы остаемся в профиле
+//вместо того чтобы редиректиться в форму
 class ProfileContainer extends React.Component<RouteComponentPropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            //но появилась проблема-у нас логика зашита в HEADER
-            //и получается, что на эту страницу данные приходят раньше
-            //чем туда-в итоге: рассинхрон->если обновить страницу,
-            //то мы не отрисуемся
             userId =this.props.autorisedUserId;
+            if(!userId){
+                //но так мы вмешиваемся во внутр. функционал->
+                //жизненный цикл
+                this.props.history.push('/login')
+            }
         }
         this.props.getUserProfile(userId);
         this.props.getStatus(userId);
@@ -70,8 +71,3 @@ export default compose<React.ComponentType>(
 
 
 
-
-
-
-
-79 - React JS - stopSubmit (redux-form)
