@@ -26,9 +26,10 @@ const MyPosts = React.memo((props: generalType) => {
     )
 });
 
+
 let maxLength10=maxLengthCreator(10)
 
-let AddNewPostForm=(props: any)=> {
+let AddNewPostForm=React.memo((props: any)=> {
     return <form onSubmit={props.handleSubmit}>
         <div>
             <Field name='newPostText' component={Textarea}
@@ -38,7 +39,7 @@ let AddNewPostForm=(props: any)=> {
             <button>Add post</button>
         </div>
     </form>;
-}
+})
 let AddNewPostFormRedux = reduxForm({form: 'ProfileAddNewPostForm'})(AddNewPostForm)
 
 export default MyPosts;
