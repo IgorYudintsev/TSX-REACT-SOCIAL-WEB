@@ -11,9 +11,6 @@ type generalType = {
     posts: Array<iposts>
  }
 
-//превращаем в стрелочн.функцию
-//мы решаем сделать тоже самое но в функциональной компоненте
-//при помощи React.memo
 const MyPosts = React.memo((props: generalType) => {
     let addPost = (values: any) => {
         props.addPost(values.newPostText);
