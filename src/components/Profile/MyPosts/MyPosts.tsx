@@ -15,7 +15,6 @@ const MyPosts = React.memo((props: generalType) => {
     let addPost = (values: any) => {
         props.addPost(values.newPostText);
     }
-
     return (
         <div className={s.postsBlock}>
             <h2>My posts</h2>
